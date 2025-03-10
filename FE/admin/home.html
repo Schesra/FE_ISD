@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard - Quản lý Giáo Viên</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <div class="user-profile">
+        <img src="avatar-placeholder.png" alt="Admin Avatar" />
+        <p>Aman Admin</p>
+        <small>Quản trị viên</small>
+      </div>
+      <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="#"><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a>
+      <a href="#"><i class="fas fa-calendar-check"></i> Điểm Danh</a>
+      <a href="#"><i class="fas fa-star"></i> Đánh Giá Hiệu Suất</a>
+      <a href="#"><i class="fas fa-money-bill"></i> Lương & Phụ Cấp</a>
+      <a href="#"><i class="fas fa-graduation-cap"></i> Đào Tạo</a>
+      <a href="#"><i class="fas fa-file-alt"></i> Tài Liệu</a>
+      <a href="#"><i class="fas fa-bullhorn"></i> Thông Báo</a>
+      <a href="#"><i class="fas fa-cog"></i> Cài Đặt</a>
+      <a href="#" class="logout"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+      <div class="dashboard-header">
+        <h3>Dashboard Tổng Quan</h3>
+        <input type="text" class="search-box" placeholder="Tìm kiếm..." />
+        <div class="icons">
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+
+      <!-- Cards thống kê -->
+      <div class="stats-container">
+        <div class="stat-card yellow">
+          <i class="fas fa-envelope"></i>
+          <h4>4</h4>
+          <p>Tin nhắn</p>
+        </div>
+        <div class="stat-card blue">
+          <i class="fas fa-briefcase"></i>
+          <h4>1</h4>
+          <p>Khóa đào tạo</p>
+        </div>
+        <div class="stat-card green">
+          <i class="fas fa-user"></i>
+          <h4>30</h4>
+          <p>Giáo viên</p>
+        </div>
+        <div class="stat-card black">
+          <i class="fas fa-file-alt"></i>
+          <h4>2</h4>
+          <p>Hợp đồng</p>
+        </div>
+        <div class="stat-card yellow">
+          <i class="fas fa-user-tie"></i>
+          <h4>20</h4>
+          <p>Nhân viên hành chính</p>
+        </div>
+      </div>
+
+      <!-- Bảng giáo viên & chấm công -->
+      <div class="dashboard-content">
+        <div class="table-container">
+          <h5>Danh sách giáo viên</h5>
+          <table>
+            <tr>
+              <th>Tên</th>
+              <th>Bộ môn</th>
+              <th>Trạng thái</th>
+              <th>Thao tác</th>
+            </tr>
+            <tr>
+              <td>Nguyễn Văn A</td>
+              <td>Toán</td>
+              <td>Đang làm việc</td>
+              <td><button class="view-btn">Xem</button></td>
+            </tr>
+            <tr>
+              <td>Trần Thị B</td>
+              <td>Văn</td>
+              <td>Nghỉ phép</td>
+              <td><button class="view-btn">Xem</button></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="table-container">
+          <h5>Bảng chấm công</h5>
+          <table>
+            <tr>
+              <th>Tên</th>
+              <th>Ngày</th>
+              <th>Trạng thái</th>
+            </tr>
+            <tr>
+              <td>Nguyễn Văn A</td>
+              <td>10/03/2024</td>
+              <td><span class="status success">Đúng giờ</span></td>
+            </tr>
+            <tr>
+              <td>Trần Thị B</td>
+              <td>10/03/2024</td>
+              <td><span class="status warning">Trễ</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>  
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Dashboard - Quản lý Giáo Viên</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Hệ Thống Quản Lý</h2>
+        <a href="../thong-tin-ca-nhan/index.html">Thông Tin Cá Nhân</a>
+
+        <div class="user-profile">
+            <img src="avatar-placeholder.png" alt="User Avatar">
+            <p>Nguyễn Văn A</p>
+            <small>Giáo viên Toán</small>
+        </div>
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="profile.html"><i class="fas fa-user"></i> Thông Tin Cá Nhân</a> <!-- Liên kết đến màn thông tin cá nhân -->
+        <a href="#"><i class="fas fa-calendar-check"></i> Nghỉ Phép</a>
+        <a href="#"><i class="fas fa-money-bill"></i> Bảng Lương</a>
+        <a href="#"><i class="fas fa-school"></i> Thông Tin Trường</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Đánh Giá</a>
+        <a href="#"><i class="fas fa-tools"></i> Tiện Ích</a>
+        <a href="#"><i class="fas fa-cogs"></i> Cài Đặt</a>
+        <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="dashboard-header">
+            <h3>User Dashboard</h3>
+            <input type="text" class="search-box" placeholder="Tìm kiếm...">
+            <div class="icons">
+                <i class="fas fa-bell"></i>
+                <i class="fas fa-envelope"></i>
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+
+        <!-- Cards thống kê -->
+        <div class="stats-container">
+            <div class="stat-card yellow">
+                <i class="fas fa-calendar-day"></i>
+                <h4>10</h4>
+                <p>Ngày nghỉ còn lại</p>
+            </div>
+            <div class="stat-card blue">
+                <i class="fas fa-bullhorn"></i>
+                <h4>4</h4>
+                <p>Thông báo</p>
+            </div>
+            <div class="stat-card green">
+                <i class="fas fa-file-alt"></i>
+                <h4>1</h4>
+                <p>Bảng lương</p>
+            </div>
+        </div>
+
+        <!-- Bảng thông tin nghỉ phép và nhiệm vụ -->
+        <div class="dashboard-content">
+            <div class="table-container">
+                <h5>Yêu cầu nghỉ phép</h5>
+                <table>
+                    <tr>
+                        <th>Loại nghỉ</th>
+                        <th>Ngày nghỉ</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    <tr>
+                        <td>Nghỉ phép</td>
+                        <td>15/03/2024</td>
+                        <td><span class="status success">Đã duyệt</span></td>
+                    </tr>
+                    <tr>
+                        <td>Nghỉ ốm</td>
+                        <td>20/03/2024</td>
+                        <td><span class="status pending">Chờ duyệt</span></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h5>To-do Tasks</h5>
+                <ul>
+                    <li>Hoàn thành tài liệu onboarding</li>
+                    <li>Điều chỉnh chương trình giảng dạy</li>
+                    <li>Thực hiện buổi đào tạo nội bộ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

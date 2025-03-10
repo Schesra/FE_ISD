@@ -1,0 +1,120 @@
+/* Tổng thể */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #E6F0FF;
+    color: #343A40;
+}
+
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    background-color: #0D1B42; /* Xanh đậm */
+    color: white;
+    width: 250px;
+    position: fixed;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 20px;
+}
+
+.sidebar a {
+    color: white;
+    padding: 15px;
+    display: block;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.sidebar a:hover, .sidebar a.active {
+    background-color: #FFC107; /* Màu vàng */
+    color: #000;
+}
+
+.logout {
+    background-color: #FF4B5C;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Nội dung chính */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background-color: #FFFFFF;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-box {
+    width: 250px;
+    padding: 5px;
+}
+
+.icons i {
+    margin: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Cards thống kê */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.stat-card {
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+}
+
+.stat-card i {
+    font-size: 30px;
+}
+
+.yellow { background: #FFC107; }
+.blue { background: #007BFF; }
+.green { background: #28A745; }
+
+/* Bảng danh sách */
+.table-container {
+    background-color: #FFFFFF;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.view-btn {
+    background-color: #007BFF;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Trạng thái */
+.status.success { color: green; }
+.status.pending { color: orange; }
