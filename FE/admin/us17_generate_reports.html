@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>USER STORY 17 - Generate Administrative Reports</title>
+
+    <!-- Bootstrap + FontAwesome + CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <!-- SIDEBAR (tùy ý, có thể ẩn) -->
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <div class="user-profile">
+        <img src="./img/Admin.jpg" alt="Admin Avatar" />
+        <p>Aman Admin</p>
+        <small>Quản trị viên</small>
+      </div>
+      <a href="home.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="us10_manage_teacher_profiles.html"
+        ><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a
+      >
+      <a href="./us12_view_teacher_attendance.html"
+        ><i class="fas fa-calendar-check"></i> Điểm Danh</a
+      >
+      <a href="./us15_send_announcements.html"
+        ><i class="fas fa-bullhorn"></i> Thông Báo</a
+      >
+      <a href="us16_manage_teacher_transfers.html"
+        ><i class="fas fa-exchange-alt"></i> Chuyển Công Tác</a
+      >
+      <a href="us17_generate_reports.html" class="active"
+        ><i class="fas fa-chart-bar"></i> Báo Cáo</a
+      >
+      <a href="#" class="logout"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+      <div class="dashboard-header">
+        <h3>Tạo Báo Cáo Quản Trị</h3>
+        <input
+          type="text"
+          class="search-box"
+          placeholder="Tìm kiếm..."
+          style="visibility: hidden"
+        />
+        <div class="icons">
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+
+      <div class="dashboard-content">
+        <!-- FORM Chọn loại báo cáo + ngày bắt đầu/kết thúc -->
+        <div class="table-container mb-4">
+          <h5>Chọn loại báo cáo</h5>
+          <form onsubmit="generateReport(event)">
+            <div class="form-group">
+              <label for="reportType">Loại báo cáo:</label>
+              <select id="reportType" class="form-control">
+                <option value="attendance">Báo cáo Điểm Danh</option>
+                <option value="leave">Báo cáo Nghỉ Phép</option>
+                <option value="workforce">Báo cáo Phân Bổ Nhân Sự</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="startDate">Ngày bắt đầu:</label>
+              <input type="date" id="startDate" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="endDate">Ngày kết thúc:</label>
+              <input type="date" id="endDate" class="form-control" />
+            </div>
+
+            <p
+              class="text-danger font-weight-bold"
+              id="errorMessage"
+              style="display: none"
+            ></p>
+
+            <button type="submit" class="btn btn-primary">Tạo báo cáo</button>
+          </form>
+        </div>
+
+        <!-- Kết quả báo cáo + nút Export PDF/Excel -->
+        <div class="table-container">
+          <h5>Kết quả Báo Cáo</h5>
+          <div id="reportContainer" style="display: none">
+            <div id="reportContent" style="background: #fff; padding: 10px">
+              <!-- Nơi hiển thị nội dung báo cáo -->
+            </div>
+            <button class="btn btn-success mt-3" onclick="exportPDF()">
+              Xuất PDF
+            </button>
+            <button class="btn btn-info mt-3" onclick="exportExcel()">
+              Xuất Excel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery, Popper, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Thư viện jsPDF (giả lập) + SheetJS (nếu muốn) -->
+    <!-- Hoặc import script "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.17.0/dist/xlsx.full.min.js"></script>
+
+    <!-- File JS logic -->
+    <script src="./JS_Demo/us17_generate_reports.js"></script>
+  </body>
+</html>
