@@ -19,13 +19,19 @@
     <div class="sidebar">
       <h2>Admin Panel</h2>
       <div class="user-profile">
-        <img src="avatar-placeholder.png" alt="Admin Avatar" />
+        <img src="./img/Admin.jpg" alt="Admin Avatar" />
         <p>Aman Admin</p>
         <small>Quản trị viên</small>
       </div>
-      <a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a>
-      <a href="#"><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a>
-      <a href="#"><i class="fas fa-calendar-check"></i> Điểm Danh</a>
+      <a href="home.html" class="active"
+        ><i class="fas fa-home"></i> Dashboard</a
+      >
+      <a href="us10_manage_teacher_profiles.html"
+        ><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a
+      >
+      <a href="./us12_view_teacher_attendance.html"
+        ><i class="fas fa-calendar-check"></i> Điểm Danh</a
+      >
       <a href="#"><i class="fas fa-star"></i> Đánh Giá Hiệu Suất</a>
       <a href="#"><i class="fas fa-money-bill"></i> Lương & Phụ Cấp</a>
       <a href="#"><i class="fas fa-graduation-cap"></i> Đào Tạo</a>
@@ -66,11 +72,26 @@
           <h4>30</h4>
           <p>Giáo viên</p>
         </div>
-        <div class="stat-card black">
+        <div
+          class="stat-card black"
+          style="cursor: pointer"
+          onclick="window.location.href='us11_manage_employment_contracts.html'"
+        >
           <i class="fas fa-file-alt"></i>
           <h4>2</h4>
           <p>Hợp đồng</p>
         </div>
+        <!-- Card mới để truy cập US13: Duyệt đơn nghỉ phép -->
+        <div
+          class="stat-card red"
+          style="cursor: pointer"
+          onclick="window.location.href='us13_approve_leave_requests.html'"
+        >
+          <i class="fas fa-user-clock"></i>
+          <h4>3</h4>
+          <p>Đơn Nghỉ Phép</p>
+        </div>
+
         <div class="stat-card yellow">
           <i class="fas fa-user-tie"></i>
           <h4>20</h4>

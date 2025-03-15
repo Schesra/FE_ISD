@@ -97,6 +97,9 @@ body {
 .black {
   background: #343a40;
 }
+.red {
+  background: red;
+}
 
 /* Bảng danh sách */
 .table-container {
@@ -130,4 +133,13 @@ td {
 }
 .status.warning {
   color: orange;
+}
+
+.user-profile img {
+  width: 80px; /* Chiều rộng mong muốn */
+  height: 80px; /* Chiều cao mong muốn (hoặc auto) */
+  object-fit: cover; /* Đảm bảo ảnh lấp đầy khung mà không méo */
+  border-radius: 50%; /* Bo tròn nếu muốn hiển thị dạng tròn */
+  display: block; /* Cho ảnh là 1 khối riêng */
+  margin: 0 auto; /* Căn giữa ngang */
 }
