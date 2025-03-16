@@ -3,24 +3,24 @@
  * Giao diện chat Admin - Teacher với dropdown
  ***************************************************/
 
-// Danh sách giáo viên (mock)
+// Danh sách giáo viên (mock data)
 const teachers = [
   { id: 1, name: "Nguyễn Văn A" },
   { id: 2, name: "Trần Thị B" },
   { id: 3, name: "Phạm Văn C" },
 ];
 
-// Lưu conversation cho từng teacher
+// Object chứa conversation cho từng teacher (key = teacher id)
 const conversations = {
   1: [
     {
       sender: "teacher",
-      message: "Chào admin, em có thắc mắc về lịch dạy.",
+      message: "Chào admin, vui lòng kiểm tra thông báo mới.",
       time: "2024-03-10 08:00",
     },
     {
       sender: "admin",
-      message: "Chào Nguyễn Văn A, admin có thể giúp gì?",
+      message: "Vâng, cảm ơn bạn. Admin sẽ kiểm tra ngay.",
       time: "2024-03-10 08:05",
     },
   ],
@@ -28,22 +28,23 @@ const conversations = {
   3: [],
 };
 
+// Biến lưu teacher hiện tại
 let currentTeacherId = null;
 
-// Tham chiếu
+// Tham chiếu DOM
 const teacherNameEl = document.getElementById("teacherName");
-const teacherArrow = document.getElementById("teacherArrow");
+const teacherArrowEl = document.getElementById("teacherArrow");
 const teacherListEl = document.getElementById("teacherList");
 const chatContentEl = document.getElementById("chatContent");
 const messageInputEl = document.getElementById("messageInput");
 
-// Khởi tạo
+// Khi load
 document.addEventListener("DOMContentLoaded", () => {
   renderTeacherList();
-  // Ẩn/hiện dropdown khi click mũi tên
-  teacherArrow.addEventListener("click", toggleTeacherList);
+  // Toggle dropdown
+  teacherArrowEl.addEventListener("click", toggleTeacherList);
 
-  // Gửi tin nhắn khi nhấn Enter
+  // Gửi tin khi nhấn Enter
   messageInputEl.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Render danh sách teachers trong dropdown
+// Render danh sách teacher trong dropdown
 function renderTeacherList() {
   teacherListEl.innerHTML = "";
   teachers.forEach((t) => {
@@ -64,16 +65,16 @@ function renderTeacherList() {
   });
 }
 
-// Chọn teacher => cập nhật currentTeacherId, hiển thị chat
+// Chọn teacher => set currentTeacherId, render chat
 function selectTeacher(teacherId) {
   currentTeacherId = teacherId;
   const teacherObj = teachers.find((t) => t.id === teacherId);
-  teacherNameEl.textContent = teacherObj.name;
+  teacherNameEl.textContent = teacherObj.name; // Cập nhật tiêu đề
   teacherListEl.style.display = "none"; // Ẩn dropdown
   renderConversation();
 }
 
-// Toggle hiển thị/ẩn dropdown teacherList
+// Toggle hiển thị dropdown
 function toggleTeacherList() {
   if (teacherListEl.style.display === "block") {
     teacherListEl.style.display = "none";
@@ -89,7 +90,7 @@ function renderConversation() {
   const conv = conversations[currentTeacherId] || [];
   conv.forEach((msg) => {
     const div = document.createElement("div");
-    div.className = "message " + msg.sender;
+    div.className = "message " + msg.sender; // 'admin' or 'teacher'
     div.innerHTML = `
         <div>${msg.message}</div>
         <span class="timestamp">${msg.time}</span>
@@ -118,7 +119,7 @@ function sendMessage() {
   messageInputEl.value = "";
   renderConversation();
 
-  // Giả lập teacher phản hồi sau 3s
+  // Giả lập teacher phản hồi sau 3 giây
   setTimeout(() => {
     const replyTime = new Date().toLocaleString();
     conversations[currentTeacherId].push({
