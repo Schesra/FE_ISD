@@ -1,0 +1,225 @@
+/* Reset & font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background-color: #f0f4ff;
+    color: #343a40;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    background-color: #0d1b42;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    padding-top: 20px;
+  }
+  .sidebar-header {
+    margin-bottom: 20px;
+  }
+  .user-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+  }
+  .sidebar-header h4 {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #fff;
+  }
+  .sidebar-header small {
+    font-size: 14px;
+    color: #ccc;
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  /* Sidebar links */
+  .sidebar a {
+    display: block;
+    color: #fff;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .sidebar a:hover,
+  .sidebar a.active {
+    background-color: #ffc107;
+    color: #000;
+  }
+  .logout {
+    background-color: #ff4b5c;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    /* Cho lùi lên - thay vì absolute bottom */
+  }
+  
+  /* Submenu */
+  .submenu-container {
+    position: relative;
+  }
+  .submenu-toggle {
+    cursor: pointer;
+  }
+  .submenu {
+    display: none;
+    background-color: #1f2c54;
+  }
+  .submenu a {
+    padding-left: 40px !important;
+    font-size: 15px;
+    background-color: #1f2c54;
+  }
+  .submenu a:hover {
+    background-color: #ffc107;
+    color: #000;
+  }
+  
+  /* Main Content */
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  /* Topbar */
+  .topbar {
+    background-color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+  }
+  .topbar h4 {
+    margin: 0;
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+  }
+  .search-box {
+    position: relative;
+    margin-right: 20px;
+  }
+  .search-box input {
+    padding: 5px 30px 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  .search-box i {
+    position: absolute;
+    right: 10px;
+    top: 7px;
+    color: #666;
+  }
+  
+  /* Dashboard container */
+  .dashboard-container {
+    margin-top: 20px;
+  }
+  
+  /* Card (Ngày nghỉ còn lại, Thông báo, Lịch giảng dạy) */
+  .dashboard-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .dashboard-card i {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  .dashboard-card h4 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  .dashboard-card p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  /* Card colors */
+  .card-yellow {
+    background-color: #ffc107;
+    color: #000;
+  }
+  .card-blue {
+    background-color: #007bff;
+  }
+  .card-green {
+    background-color: #28a745;
+  }
+  
+  /* Table container */
+  .table-container {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .table-container h5 {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .table thead th {
+    background-color: #e9ecef;
+    color: #333;
+  }
+  .table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  .text-success {
+    color: #28a745 !important;
+  }
+  .text-warning {
+    color: #ffc107 !important;
+  }
+  .profile-container {
+    margin-top: 20px;
+  }
+  .profile-container .card {
+    border-radius: 8px;
+  }
+  .profile-container h5 {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .leave-container {
+    margin-top: 20px;
+  }
+  .leave-container .card {
+    border-radius: 8px;
+  }
+  .leave-container h5 {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  .attendance-container {
+    margin-top: 20px;
+  }
+  .attendance-container .card {
+    border-radius: 8px;
+  }
+  .attendance-container h5 {
+    margin-bottom: 15px;
+    font-weight: 600;
+  }

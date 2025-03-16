@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>USER STORY 10 - Manage Teacher Profiles</title>
 
-    <!-- Sử dụng FontAwesome, Bootstrap và CSS template -->
+    <!-- FontAwesome, Bootstrap -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -14,6 +14,7 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <!-- CSS template -->
     <link rel="stylesheet" href="home.css" />
   </head>
   <body>
@@ -25,15 +26,15 @@
         <p>Aman Admin</p>
         <small>Quản trị viên</small>
       </div>
-      <!-- Chúng ta đánh dấu 'Hồ sơ Giáo Viên' là active để khớp với trang hiện tại -->
+      <!-- Menu -->
       <a href="home.html"><i class="fas fa-home"></i> Dashboard</a>
       <a href="us10_manage_teacher_profiles.html" class="active"
         ><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a
       >
-      <a href="./us12_view_teacher_attendance.html"
+      <a href="us12_view_teacher_attendance.html"
         ><i class="fas fa-calendar-check"></i> Điểm Danh</a
       >
-      <a href="./us15_send_announcements.html"
+      <a href="us15_send_announcements.html"
         ><i class="fas fa-bullhorn"></i> Thông Báo</a
       >
       <a href="us16_manage_teacher_transfers.html"
@@ -42,14 +43,13 @@
       <a href="us17_generate_reports.html"
         ><i class="fas fa-chart-bar"></i> Báo Cáo</a
       >
-      <a href="#" class="logout"
+      <a href="../user/teacher_login.html" class="logout"
         ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
       >
     </div>
 
     <!-- MAIN CONTENT -->
     <div class="content">
-      <!-- Header phía trên -->
       <div class="dashboard-header">
         <h3>Quản lý Hồ sơ Giáo Viên</h3>
         <input
@@ -65,7 +65,6 @@
         </div>
       </div>
 
-      <!-- PHẦN NỘI DUNG -->
       <div class="dashboard-content">
         <!-- Nút thêm giáo viên -->
         <button
@@ -84,23 +83,24 @@
           <table class="table table-bordered">
             <thead class="thead-light">
               <tr>
+                <!-- Cột Họ và Tên - click để xem chi tiết -->
                 <th>Họ và Tên</th>
                 <th>Ngày sinh</th>
-                <th>Liên hệ</th>
+                <th>Số điện thoại</th>
                 <th>Ngày bắt đầu</th>
                 <th>Bằng cấp</th>
                 <th>Hành động</th>
               </tr>
             </thead>
             <tbody id="teacherTableBody">
-              <!-- Nội dung render qua JS -->
+              <!-- Render qua JS -->
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- MODAL (Bootstrap) để thêm/sửa thông tin giáo viên -->
+    <!-- MODAL Thêm/Sửa -->
     <div
       class="modal fade"
       id="teacherModal"
@@ -124,11 +124,11 @@
               </button>
             </div>
             <div class="modal-body">
-              <!-- Input ẩn để lưu ID khi sửa -->
+              <!-- Hidden ID khi edit -->
               <input type="hidden" id="teacherId" />
 
               <div class="form-group">
-                <label for="fullName">Họ và Tên:</label>
+                <label for="fullName">Họ và Tên *</label>
                 <input
                   type="text"
                   class="form-control"
@@ -138,7 +138,7 @@
               </div>
 
               <div class="form-group">
-                <label for="dateOfBirth">Ngày sinh:</label>
+                <label for="dateOfBirth">Ngày sinh *</label>
                 <input
                   type="date"
                   class="form-control"
@@ -148,12 +148,32 @@
               </div>
 
               <div class="form-group">
-                <label for="contact">Liên hệ:</label>
-                <input type="text" class="form-control" id="contact" required />
+                <label for="phone">Số điện thoại *</label>
+                <input type="text" class="form-control" id="phone" required />
               </div>
 
               <div class="form-group">
-                <label for="startDate">Ngày bắt đầu:</label>
+                <label for="email">Email *</label>
+                <input type="email" class="form-control" id="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="address">Địa chỉ *</label>
+                <input type="text" class="form-control" id="address" required />
+              </div>
+
+              <div class="form-group">
+                <label for="emergencyContact">Người liên hệ khẩn cấp *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="emergencyContact"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="startDate">Ngày bắt đầu *</label>
                 <input
                   type="date"
                   class="form-control"
@@ -163,7 +183,7 @@
               </div>
 
               <div class="form-group">
-                <label for="qualifications">Bằng cấp:</label>
+                <label for="qualifications">Bằng cấp</label>
                 <input type="text" class="form-control" id="qualifications" />
               </div>
 
@@ -174,7 +194,6 @@
                 style="display: none"
               ></p>
             </div>
-
             <div class="modal-footer">
               <button
                 type="button"
@@ -190,12 +209,69 @@
       </div>
     </div>
 
-    <!-- Bootstrap + jQuery + Popper JS -->
+    <!-- MODAL Xem chi tiết (read-only) -->
+    <div
+      class="modal fade"
+      id="teacherDetailModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="teacherDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="teacherDetailModalLabel">
+              Thông tin chi tiết
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Hiển thị read-only -->
+            <p><strong>Họ và Tên:</strong> <span id="detailFullName"></span></p>
+            <p><strong>Ngày sinh:</strong> <span id="detailDOB"></span></p>
+            <p>
+              <strong>Số điện thoại:</strong> <span id="detailPhone"></span>
+            </p>
+            <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+            <p><strong>Địa chỉ:</strong> <span id="detailAddress"></span></p>
+            <p>
+              <strong>Người liên hệ khẩn cấp:</strong>
+              <span id="detailEmergency"></span>
+            </p>
+            <p>
+              <strong>Ngày bắt đầu:</strong> <span id="detailStartDate"></span>
+            </p>
+            <p>
+              <strong>Bằng cấp:</strong> <span id="detailQualifications"></span>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap + jQuery + Popper -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- File JS tách riêng -->
+    <!-- JS logic -->
     <script src="./JS_Demo/us10_manage_teacher_profiles.js"></script>
   </body>
 </html>

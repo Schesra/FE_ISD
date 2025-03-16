@@ -42,7 +42,7 @@
       <a href="us17_generate_reports.html"
         ><i class="fas fa-chart-bar"></i> Báo Cáo</a
       >
-      <a href="#" class="logout"
+      <a href="../user/teacher_login.html" class="logout"
         ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
       >
     </div>
@@ -61,7 +61,11 @@
 
       <!-- Cards thống kê -->
       <div class="stats-container">
-        <div class="stat-card yellow">
+        <div
+          class="stat-card yellow"
+          style="cursor: pointer"
+          onclick="window.location.href='./admin_messenger_dropdown.html'"
+        >
           <i class="fas fa-envelope"></i>
           <h4>4</h4>
           <p>Tin nhắn</p>
@@ -89,6 +93,15 @@
           <i class="fas fa-user-clock"></i>
           <h4>3</h4>
           <p>Đơn Nghỉ Phép</p>
+        </div>
+        <div
+          class="stat-card blue"
+          style="cursor: pointer"
+          onclick="window.location.href='./us_create_teacher_account.html'"
+        >
+          <i class="fas fa-envelope"></i>
+          <h4>4</h4>
+          <p>Tạo tài khoản</p>
         </div>
       </div>
 

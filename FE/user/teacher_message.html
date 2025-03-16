@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tin Nhắn - Giáo Viên</title>
+    <!-- Bootstrap & FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Sử dụng file CSS chung của dashboard -->
+    <link rel="stylesheet" href="teacher_dashboard.css" />
+    <style>
+      /* Một số bổ sung cho giao diện tin nhắn */
+      .chat-container {
+        height: 500px;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        overflow-y: auto;
+        padding: 15px;
+        background-color: #fff;
+      }
+      .message {
+        margin-bottom: 15px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        max-width: 75%;
+      }
+      .message.teacher {
+        background-color: #007bff;
+        color: #fff;
+        margin-left: auto;
+      }
+      .message.admin {
+        background-color: #f1f1f1;
+        color: #333;
+      }
+      .message .timestamp {
+        display: block;
+        font-size: 11px;
+        margin-top: 5px;
+        color: #ccc;
+      }
+      .chat-input {
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header text-center">
+        <img src="avatar-placeholder.png" alt="Avatar" class="user-avatar" />
+        <h4 class="mt-2">Nguyễn Văn A</h4>
+        <small>Giáo Viên Toán</small>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_dashboard.html')"
+        ><i class="fas fa-home"></i> Trang Chủ</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('profileSub')">
+          <i class="fas fa-user"></i> Hồ sơ
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="profileSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_profile_view.html')">Xem Hồ sơ</a>
+          <a href="#" onclick="navigateTo('teacher_profile_edit_request.html')"
+            >Cập nhật Thông tin</a
+          >
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_contract.html')"
+        ><i class="fas fa-file-contract"></i> Hợp đồng</a
+      >
+      <a href="#" onclick="navigateTo('teacher_leave.html')"
+        ><i class="fas fa-bed"></i> Nghỉ phép</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('attendanceSub')">
+          <i class="fas fa-calendar-check"></i> Điểm danh
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="attendanceSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_attendance_checkin.html')">Check In/Out</a>
+          <a href="#" onclick="navigateTo('teacher_attendance_history.html')">Xem Lịch Sử</a>
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_announcement.html')"
+        ><i class="fas fa-bell"></i> Thông báo</a
+      >
+      <!-- Tin nhắn hiện tại active -->
+      <a href="#" class="active" onclick="navigateTo('teacher_message.html')"
+        ><i class="fas fa-envelope"></i> Tin nhắn</a
+      >
+
+      <a href="#" class="logout mt-4" onclick="logoutUser()"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- TOPBAR -->
+      <div class="topbar d-flex justify-content-between align-items-center">
+        <h4 class="m-0">Tin Nhắn</h4>
+        <div class="topbar-right d-flex align-items-center">
+          <div class="search-box mr-3">
+            <input type="text" placeholder="Tìm kiếm..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <i
+            class="fas fa-bell mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_announcement.html')"
+          ></i>
+          <i
+            class="fas fa-envelope mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_message.html')"
+          ></i>
+          <i class="fas fa-user-circle" style="font-size: 22px;"></i>
+        </div>
+      </div>
+
+      <!-- Chat Interface -->
+      <div class="chat-container mt-4" id="chatContainer">
+        <!-- Các tin nhắn sẽ được chèn vào đây -->
+      </div>
+
+      <!-- Chat Input -->
+      <div class="chat-input mt-3">
+        <div class="input-group">
+          <input
+            type="text"
+            id="messageInput"
+            class="form-control"
+            placeholder="Nhập tin nhắn..."
+          />
+          <div class="input-group-append">
+            <button class="btn btn-primary" onclick="sendMessage()">
+              Gửi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS: jQuery, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    ></script>
+
+    <!-- JS logic -->
+    <script>
+      function toggleSubMenu(id) {
+        const sub = document.getElementById(id);
+        sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+      }
+      function navigateTo(page) {
+        window.location.href = page;
+      }
+      function logoutUser() {
+        alert('Bạn đã đăng xuất.');
+        window.location.href = 'teacher_login.html';
+      }
+
+      // Giả lập mảng lưu trữ cuộc hội thoại
+      let conversation = [
+        // Tin nhắn cũ (nếu có)
+        {
+          sender: 'admin',
+          message: 'Chào giáo viên, vui lòng kiểm tra thông báo mới.',
+          time: '2024-03-10 08:30',
+        },
+        {
+          sender: 'teacher',
+          message: 'Vâng, cảm ơn admin.',
+          time: '2024-03-10 08:31',
+        },
+      ];
+
+      // Hàm render conversation
+      function renderChat() {
+        const chatContainer = document.getElementById('chatContainer');
+        chatContainer.innerHTML = '';
+        conversation.forEach((msg) => {
+          const div = document.createElement('div');
+          div.className = 'message ' + (msg.sender === 'teacher' ? 'teacher' : 'admin');
+          div.innerHTML = `
+            <div>${msg.message}</div>
+            <span class="timestamp">${msg.time}</span>
+          `;
+          chatContainer.appendChild(div);
+        });
+        // Cuộn xuống cuối
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+      }
+
+      // Hàm gửi tin nhắn
+      function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const text = input.value.trim();
+        if (!text) return;
+        const now = new Date().toLocaleString();
+        conversation.push({
+          sender: 'teacher',
+          message: text,
+          time: now,
+        });
+        input.value = '';
+        renderChat();
+
+        // Giả lập admin phản hồi sau 3 giây
+        setTimeout(() => {
+          const replyTime = new Date().toLocaleString();
+          conversation.push({
+            sender: 'admin',
+            message: 'Admin đã nhận tin nhắn của bạn.',
+            time: replyTime,
+          });
+          renderChat();
+        }, 3000);
+      }
+
+      // Khi trang load
+      document.addEventListener('DOMContentLoaded', renderChat);
+    </script>
+  </body>
+</html>

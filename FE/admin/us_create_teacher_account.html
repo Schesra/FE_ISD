@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tạo Tài Khoản Giáo Viên (Admin)</title>
+    <!-- Bootstrap & FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- File CSS riêng (tách ra) -->
+    <link rel="stylesheet" href="us_create_teacher_account.css" />
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <div class="user-profile">
+        <img src="./img/Admin.jpg" alt="Admin Avatar" />
+        <p>Aman Admin</p>
+        <small>Quản trị viên</small>
+      </div>
+      <a href="home.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="us10_manage_teacher_profiles.html"
+        ><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a
+      >
+      <a href="us12_view_teacher_attendance.html"
+        ><i class="fas fa-calendar-check"></i> Điểm Danh</a
+      >
+      <a href="us15_send_announcements.html"
+        ><i class="fas fa-bullhorn"></i> Thông Báo</a
+      >
+      <a href="us16_manage_teacher_transfers.html"
+        ><i class="fas fa-exchange-alt"></i> Chuyển Công Tác</a
+      >
+      <a href="us17_generate_reports.html"
+        ><i class="fas fa-chart-bar"></i> Báo Cáo</a
+      >
+      <a href="../user/teacher_login.html" class="logout"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+      <div class="dashboard-header">
+        <h3>Tạo Tài Khoản Giáo Viên</h3>
+        <input
+          type="text"
+          class="search-box"
+          placeholder="Tìm kiếm..."
+          style="visibility: hidden"
+        />
+        <div class="icons">
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </div>
+
+      <div class="dashboard-content account-container">
+        <!-- Form tạo tài khoản -->
+        <div class="card p-4 shadow-sm">
+          <h5>Tạo tài khoản mới</h5>
+          <hr />
+
+          <!-- Thông báo lỗi / thành công -->
+          <div
+            id="errorBox"
+            class="alert alert-danger"
+            style="display: none"
+          ></div>
+          <div
+            id="successBox"
+            class="alert alert-success"
+            style="display: none"
+          ></div>
+
+          <form onsubmit="createAccount(event)">
+            <!-- Thay vì select, ta dùng input text để admin tự nhập Tên giáo viên -->
+            <div class="form-group">
+              <label for="teacherName">Tên Giáo Viên *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="teacherName"
+                placeholder="VD: Nguyễn Văn A"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="username">Tên đăng nhập *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                placeholder="VD: teacherA"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Mật khẩu tạm *</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="Nhập mật khẩu tạm"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Tạo Tài Khoản</button>
+          </form>
+        </div>
+
+        <!-- Danh sách tài khoản -->
+        <div class="table-container">
+          <h5>Danh sách Tài Khoản Giáo Viên</h5>
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th>ID</th>
+                <th>Giáo Viên</th>
+                <th>Tên đăng nhập</th>
+                <th>Ngày tạo</th>
+              </tr>
+            </thead>
+            <tbody id="accountTableBody">
+              <!-- Render qua JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS: jQuery, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- File JS logic -->
+    <script src="./JS_Demo/us_create_teacher_account.js"></script>
+  </body>
+</html>

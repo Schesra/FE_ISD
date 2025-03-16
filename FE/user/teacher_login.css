@@ -1,0 +1,83 @@
+/* Reset & font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Layout tổng quát (2 nửa) */
+  .login-container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  /* Nửa trái: màu trắng, form đăng nhập */
+  .login-left {
+    flex: 1;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .login-content {
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  /* Nửa phải: nền xanh / pattern */
+  .login-right {
+    flex: 1;
+    background-color: #1f3b87;
+    background-image: url("pattern-bg.png"); /* pattern tùy chỉnh */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  /* Tiêu đề & mô tả */
+  .login-content h2 {
+    font-size: 30px;
+    color: #1f3b87;
+    margin-bottom: 10px;
+  }
+  .login-content p {
+    margin-bottom: 20px;
+    color: #777;
+  }
+  
+  /* Form & input */
+  .form-group label {
+    font-weight: 500;
+    color: #333;
+  }
+  .form-control {
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  
+  /* Check & link */
+  .form-check-label {
+    margin-left: 5px;
+    color: #555;
+  }
+  .login-content a {
+    text-decoration: none;
+    color: #1f3b87;
+  }
+  .login-content a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Nút */
+  .btn-primary {
+    background-color: #1f3b87;
+    border-color: #1f3b87;
+    transition: background-color 0.2s ease;
+  }
+  .btn-primary:hover {
+    background-color: #2d4fa9;
+    border-color: #2d4fa9;
+  }
+  

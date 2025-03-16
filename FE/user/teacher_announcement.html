@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Thông Báo - Giáo Viên</title>
+    <!-- Bootstrap & FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- CSS chung (sử dụng teacher_dashboard.css để đảm bảo giao diện giống nhau) -->
+    <link rel="stylesheet" href="teacher_dashboard.css" />
+    <style>
+      /* Một vài bổ sung cho trang thông báo */
+      .notification-container {
+        margin-top: 20px;
+      }
+      .notification-list {
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .notification-item {
+        border-bottom: 1px solid #e9ecef;
+        padding: 10px;
+      }
+      .notification-category {
+        font-weight: 600;
+        font-size: 14px;
+        margin-right: 10px;
+      }
+      .notification-time {
+        color: #888;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header text-center">
+        <img src="avatar-placeholder.png" alt="Avatar" class="user-avatar" />
+        <h4 class="mt-2">Nguyễn Văn A</h4>
+        <small>Giáo Viên Toán</small>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_dashboard.html')"
+        ><i class="fas fa-home"></i> Trang Chủ</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('profileSub')">
+          <i class="fas fa-user"></i> Hồ sơ
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="profileSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_profile_view.html')">Xem Hồ sơ</a>
+          <a href="#" onclick="navigateTo('teacher_profile_edit_request.html')"
+            >Cập nhật Thông tin</a
+          >
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_contract.html')"
+        ><i class="fas fa-file-contract"></i> Hợp đồng</a
+      >
+      <a href="#" onclick="navigateTo('teacher_leave.html')"
+        ><i class="fas fa-bed"></i> Nghỉ phép</a
+      >
+
+      <div class="submenu-container">
+        <a
+          href="#"
+          class="submenu-toggle"
+          onclick="toggleSubMenu('attendanceSub')"
+        >
+          <i class="fas fa-calendar-check"></i> Điểm danh
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="attendanceSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_attendance_checkin.html')"
+            >Check In/Out</a
+          >
+          <a href="#" onclick="navigateTo('teacher_attendance_history.html')"
+            >Xem Lịch Sử</a
+          >
+        </div>
+      </div>
+
+      <!-- Đặt mục Thông báo active -->
+      <a href="#" class="active" onclick="navigateTo('teacher_notification.html')"
+        ><i class="fas fa-bell"></i> Thông Báo</a
+      >
+      <a href="#" onclick="navigateTo('teacher_message.html')"
+        ><i class="fas fa-envelope"></i> Tin nhắn</a
+      >
+
+      <!-- Đăng xuất được đặt lên gần đầu như admin -->
+      <a href="#" class="logout mt-4" onclick="logoutUser()"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- TOPBAR -->
+      <div class="topbar d-flex justify-content-between align-items-center">
+        <h4 class="m-0">Thông Báo</h4>
+        <div class="topbar-right d-flex align-items-center">
+          <div class="search-box mr-3">
+            <input type="text" placeholder="Tìm kiếm..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <i
+            class="fas fa-bell mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_announcement.html')"
+          ></i>
+          <i
+            class="fas fa-envelope mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_message.html')"
+          ></i>
+          <i class="fas fa-user-circle" style="font-size: 22px;"></i>
+        </div>
+      </div>
+
+      <!-- Notifications Content -->
+      <div class="notification-container">
+        <!-- Thông báo lỗi nếu không lấy được dữ liệu -->
+        <div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+        <!-- Danh sách thông báo -->
+        <div class="table-container">
+          <h5>Danh Sách Thông Báo</h5>
+          <div id="notificationList" class="notification-list">
+            <!-- JS sẽ render thông báo ở đây -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS: jQuery, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    ></script>
+
+    <!-- JS logic -->
+    <script>
+      // Hàm chuyển hướng trang
+      function navigateTo(page) {
+        window.location.href = page;
+      }
+
+      // Hàm toggle submenu
+      function toggleSubMenu(id) {
+        const sub = document.getElementById(id);
+        sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+      }
+
+      function logoutUser() {
+        alert('Bạn đã đăng xuất.');
+        window.location.href = 'teacher_login.html';
+      }
+
+      // Mảng lưu thông báo (mock)
+      let notifications = [
+        {
+          id: 1,
+          category: 'Lịch trình',
+          message: 'Lịch dạy hôm nay được cập nhật.',
+          time: '2024-03-10 07:00',
+        },
+        {
+          id: 2,
+          category: 'Chính sách',
+          message: 'Quy định mới về nghỉ phép đã được ban hành.',
+          time: '2024-03-09 16:30',
+        },
+        {
+          id: 3,
+          category: 'Thông báo chung',
+          message: 'Trường thông báo nghỉ học vào ngày mai do lễ.',
+          time: '2024-03-09 12:00',
+        },
+      ];
+
+      // Render thông báo
+      function renderNotifications() {
+        const listContainer = document.getElementById('notificationList');
+        listContainer.innerHTML = '';
+
+        if (notifications.length === 0) {
+          listContainer.innerHTML =
+            '<p class="text-center">Không có thông báo mới.</p>';
+          return;
+        }
+
+        notifications.forEach((noti) => {
+          const div = document.createElement('div');
+          div.className = 'notification-item';
+          div.innerHTML = `
+            <span class="notification-category badge badge-primary">${noti.category}</span>
+            <span class="notification-message">${noti.message}</span>
+            <br/>
+            <small class="notification-time">${noti.time}</small>
+          `;
+          listContainer.appendChild(div);
+        });
+      }
+
+      // Giả lập nhận thông báo mới theo thời gian thực
+      function simulateNewNotification() {
+        // Tạo một thông báo mới ngẫu nhiên
+        const categories = ['Lịch trình', 'Chính sách', 'Thông báo chung'];
+        const messages = [
+          'Lịch dạy đã được cập nhật.',
+          'Thông báo mới về quy định nghỉ phép.',
+          'Trường thông báo sự kiện đặc biệt sắp diễn ra.',
+        ];
+        const randomCategory =
+          categories[Math.floor(Math.random() * categories.length)];
+        const randomMessage =
+          messages[Math.floor(Math.random() * messages.length)];
+        const now = new Date();
+        const timeString = now.toLocaleString();
+
+        const newNoti = {
+          id: notifications.length + 1,
+          category: randomCategory,
+          message: randomMessage,
+          time: timeString,
+        };
+
+        notifications.unshift(newNoti); // thêm vào đầu mảng
+        renderNotifications();
+      }
+
+      // Giả lập update theo thời gian (mỗi 15 giây)
+      setInterval(simulateNewNotification, 15000);
+
+      // Khi load trang
+      document.addEventListener('DOMContentLoaded', renderNotifications);
+    </script>
+  </body>
+</html>

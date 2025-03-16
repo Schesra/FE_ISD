@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hợp đồng Lao động - Giáo Viên</title>
+    <!-- Bootstrap, FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- CSS chung (sidebar, topbar) -->
+    <link rel="stylesheet" href="teacher_dashboard.css" />
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header text-center">
+        <img src="avatar-placeholder.png" alt="Avatar" class="user-avatar" />
+        <h4 class="mt-2">Nguyễn Văn A</h4>
+        <small>Giáo Viên Toán</small>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_dashboard.html')"
+        ><i class="fas fa-home"></i> Trang Chủ</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('profileSub')"
+          ><i class="fas fa-user"></i> Hồ sơ
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="profileSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_profile_view.html')"
+            >Xem Hồ sơ</a
+          >
+          <a href="#" onclick="navigateTo('teacher_profile_edit.html')"
+            >Cập nhật Thông tin</a
+          >
+        </div>
+      </div>
+
+      <!-- Hợp đồng (active) -->
+      <a href="#" class="active" onclick="navigateTo('teacher_contract.html')"
+        ><i class="fas fa-file-contract"></i> Hợp đồng</a
+      >
+      <a href="#" onclick="navigateTo('teacher_leave.html')"
+        ><i class="fas fa-bed"></i> Nghỉ phép</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('attendanceSub')"
+          ><i class="fas fa-calendar-check"></i> Điểm danh
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="attendanceSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_attendance_checkin.html')"
+            >Check in/out</a
+          >
+          <a href="#" onclick="navigateTo('teacher_attendance_history.html')"
+            >Xem Lịch sử</a
+          >
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_announcement.html')"
+        ><i class="fas fa-bell"></i> Thông báo</a
+      >
+      <a href="#" onclick="navigateTo('teacher_message.html')"
+        ><i class="fas fa-envelope"></i> Tin nhắn</a
+      >
+
+      <a href="#" class="logout mt-4" onclick="logoutUser()"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <div class="topbar d-flex justify-content-between align-items-center">
+        <h4 class="m-0">Xem Hợp đồng Lao động</h4>
+        <div class="topbar-right d-flex align-items-center">
+          <div class="search-box mr-3">
+            <input type="text" placeholder="Tìm kiếm..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <i
+            class="fas fa-bell mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_announcement.html')"
+          ></i>
+          <i
+            class="fas fa-envelope mr-3"
+            style="cursor: pointer;"
+            onclick="navigateTo('teacher_message.html')"
+          ></i>
+          <i class="fas fa-user-circle" style="font-size: 22px;"></i>
+        </div>
+      </div>
+
+      <!-- CONTRACT CONTENT -->
+      <div class="contract-container mt-4">
+        <!-- Lỗi nếu ko có contract -->
+        <div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+        <div class="card p-4 shadow-sm">
+          <h5>Hợp đồng Lao động</h5>
+          <hr />
+
+          <div id="contractContent">
+            <!-- JS sẽ hiển thị 1) Thông tin Hợp đồng, 2) Link PDF. 
+                 Hoặc nếu ko có => hiển thị error. 
+            -->
+            <p><strong>Mã Hợp đồng:</strong> <span id="contractID">...</span></p>
+            <p><strong>Ngày bắt đầu:</strong> <span id="startDate">...</span></p>
+            <p><strong>Ngày kết thúc:</strong> <span id="endDate">...</span></p>
+            <p><strong>Mức lương:</strong> <span id="salary">...</span></p>
+            <p><strong>Quyền lợi khác:</strong> <span id="benefits">...</span></p>
+
+            <div id="pdfLinkWrapper" style="margin-top: 15px;">
+              <a href="#" id="pdfLink" target="_blank" class="btn btn-primary"
+                ><i class="fas fa-file-pdf"></i> Xem PDF</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    ></script>
+    <script>
+      function toggleSubMenu(id) {
+        const sub = document.getElementById(id);
+        sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+      }
+
+      function navigateTo(page) {
+        window.location.href = page;
+      }
+
+      function logoutUser() {
+        alert('Bạn đã đăng xuất.');
+        window.location.href = 'teacher_login.html';
+      }
+
+      // Giả lập load contract data
+      // (thực tế: fetch / API)
+      function loadContract() {
+        const errorBox = document.getElementById('errorBox');
+
+        // Giả lập data
+        const hasContract = true; // Nếu false => ko có
+        const contractData = {
+          contractID: 'CT-2024-001',
+          startDate: '01/05/2024',
+          endDate: '01/05/2025',
+          salary: '15,000,000 VND/tháng',
+          benefits: 'Bảo hiểm y tế, thưởng lễ tết...',
+          pdfLink: 'sample_contract.pdf', // Đường dẫn file PDF
+        };
+
+        if (!hasContract) {
+          // Ko có contract
+          errorBox.style.display = 'block';
+          errorBox.textContent = 'Không có hợp đồng nào được lưu trong hệ thống.';
+          // Ẩn nội dung contract
+          document.getElementById('contractContent').style.display = 'none';
+        } else {
+          // Hiển thị contract
+          document.getElementById('contractID').textContent =
+            contractData.contractID;
+          document.getElementById('startDate').textContent =
+            contractData.startDate;
+          document.getElementById('endDate').textContent = contractData.endDate;
+          document.getElementById('salary').textContent = contractData.salary;
+          document.getElementById('benefits').textContent = contractData.benefits;
+
+          document.getElementById('pdfLink').href = contractData.pdfLink;
+        }
+      }
+
+      // On load
+      document.addEventListener('DOMContentLoaded', loadContract);
+    </script>
+  </body>
+</html>

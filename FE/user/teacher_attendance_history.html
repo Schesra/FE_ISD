@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Xem Lịch Sử Điểm Danh - Giáo Viên</title>
+    <!-- Bootstrap & FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- Sử dụng CSS chung (sidebar, topbar, etc.) -->
+    <link rel="stylesheet" href="teacher_dashboard.css" />
+  </head>
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header text-center">
+        <img src="avatar-placeholder.png" alt="Avatar" class="user-avatar" />
+        <h4 class="mt-2">Nguyễn Văn A</h4>
+        <small>Giáo Viên Toán</small>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_dashboard.html')"
+        ><i class="fas fa-home"></i> Trang Chủ</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('profileSub')">
+          <i class="fas fa-user"></i> Hồ sơ
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="profileSub" class="submenu">
+          <a href="#" onclick="navigateTo('teacher_profile_view.html')">Xem Hồ sơ</a>
+          <a href="#" onclick="navigateTo('teacher_profile_edit_request.html')">Cập nhật Thông tin</a>
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_contract.html')"
+        ><i class="fas fa-file-contract"></i> Hợp đồng</a
+      >
+      <a href="#" onclick="navigateTo('teacher_leave.html')"
+        ><i class="fas fa-bed"></i> Nghỉ phép</a
+      >
+
+      <div class="submenu-container">
+        <a href="#" class="submenu-toggle" onclick="toggleSubMenu('attendanceSub')">
+          <i class="fas fa-calendar-check"></i> Điểm danh
+          <i class="fas fa-chevron-down float-right"></i>
+        </a>
+        <div id="attendanceSub" class="submenu" style="display: block;">
+          <a href="#" onclick="navigateTo('teacher_attendance_checkin.html')">Check In/Out</a>
+          <a href="#" class="active" onclick="navigateTo('teacher_attendance_history.html')">Xem Lịch Sử</a>
+        </div>
+      </div>
+
+      <a href="#" onclick="navigateTo('teacher_announcement.html')"
+        ><i class="fas fa-bell"></i> Thông báo</a
+      >
+      <a href="#" onclick="navigateTo('teacher_message.html')"
+        ><i class="fas fa-envelope"></i> Tin nhắn</a
+      >
+
+      <!-- Đăng xuất được đặt lên gần đầu, theo yêu cầu -->
+      <a href="#" class="logout mt-4" onclick="logoutUser()"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- TOPBAR -->
+      <div class="topbar d-flex justify-content-between align-items-center">
+        <h4 class="m-0">Xem Lịch Sử Điểm Danh</h4>
+        <div class="topbar-right d-flex align-items-center">
+          <div class="search-box mr-3">
+            <input type="text" placeholder="Tìm kiếm..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <i class="fas fa-bell mr-3" style="cursor: pointer;" onclick="navigateTo('teacher_announcement.html')"></i>
+          <i class="fas fa-envelope mr-3" style="cursor: pointer;" onclick="navigateTo('teacher_message.html')"></i>
+          <i class="fas fa-user-circle" style="font-size: 22px;"></i>
+        </div>
+      </div>
+
+      <!-- Attendance Records Content -->
+      <div class="attendance-history-container mt-4">
+        <!-- Hiển thị lỗi nếu có -->
+        <div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+        <div class="table-container">
+          <h5>Lịch Sử Điểm Danh</h5>
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <tr>
+                <th>Ngày</th>
+                <th>Check In</th>
+                <th>Check Out</th>
+                <th>Tình trạng</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceTableBody">
+              <!-- Các dòng dữ liệu sẽ được render qua JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- JS: jQuery, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- JS Logic -->
+    <script>
+      function toggleSubMenu(id) {
+        const sub = document.getElementById(id);
+        sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+      }
+
+      function navigateTo(page) {
+        window.location.href = page;
+      }
+
+      function logoutUser() {
+        alert('Bạn đã đăng xuất.');
+        window.location.href = 'teacher_login.html';
+      }
+
+      // Giả lập tải dữ liệu điểm danh
+      function loadAttendanceRecords() {
+        const errorBox = document.getElementById('errorBox');
+        const tbody = document.getElementById('attendanceTableBody');
+        tbody.innerHTML = '';
+
+        try {
+          // Giả lập gọi API trả về mảng records
+          const records = [
+            { date: '2024-03-10', checkIn: '07:55', checkOut: '15:05', status: 'Đúng giờ' },
+            { date: '2024-03-09', checkIn: '08:10', checkOut: '15:00', status: 'Đi muộn' },
+            { date: '2024-03-08', checkIn: '--', checkOut: '--', status: 'Vắng mặt' }
+          ];
+
+          // Render từng dòng
+          records.forEach(record => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td>${record.date}</td>
+              <td>${record.checkIn}</td>
+              <td>${record.checkOut}</td>
+              <td>${record.status}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        } catch (error) {
+          errorBox.style.display = 'block';
+          errorBox.textContent = 'Error: Không thể lấy dữ liệu điểm danh. Vui lòng thử lại sau.';
+        }
+      }
+
+      // Khi trang load
+      document.addEventListener('DOMContentLoaded', loadAttendanceRecords);
+    </script>
+  </body>
+</html>

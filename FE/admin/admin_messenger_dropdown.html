@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat Admin - Dropdown Teacher</title>
+    <!-- Bootstrap & FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <!-- File CSS chung (home.css) nếu cần -->
+    <link rel="stylesheet" href="home.css" />
+    <!-- File CSS riêng -->
+    <link rel="stylesheet" href="admin_messenger_dropdown.css" />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <div class="user-profile">
+        <img src="./img/Admin.jpg" alt="Admin Avatar" />
+        <p>Aman Admin</p>
+        <small>Quản trị viên</small>
+      </div>
+      <a href="home.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="us10_manage_teacher_profiles.html"
+        ><i class="fas fa-user"></i> Hồ sơ Giáo Viên</a
+      >
+      <a href="./us12_view_teacher_attendance.html"
+        ><i class="fas fa-calendar-check"></i> Điểm Danh</a
+      >
+
+      <a href="./us15_send_announcements.html"
+        ><i class="fas fa-bullhorn"></i> Thông Báo</a
+      >
+      <a href="us16_manage_teacher_transfers.html"
+        ><i class="fas fa-exchange-alt"></i> Chuyển Công Tác</a
+      >
+      <a href="us17_generate_reports.html"
+        ><i class="fas fa-chart-bar"></i> Báo Cáo</a
+      >
+      <a href="../user/teacher_login.html" class="logout"
+        ><i class="fas fa-sign-out-alt"></i> Đăng xuất</a
+      >
+    </div>
+    <!-- MAIN CONTENT - full screen chat -->
+    <div class="chat-page-container">
+      <!-- Header hiển thị tên giáo viên & dropdown -->
+      <div
+        class="chat-header d-flex justify-content-between align-items-center"
+      >
+        <div class="teacher-dropdown">
+          <h5 id="teacherName" class="m-0">
+            <!-- Tên giáo viên hiện tại -->
+            Chọn giáo viên
+          </h5>
+          <i class="fas fa-chevron-down ml-2" id="teacherArrow"></i>
+          <!-- Danh sách giáo viên thả xuống -->
+          <div class="teacher-list" id="teacherList">
+            <!-- JS render -->
+          </div>
+        </div>
+        <div class="chat-search">
+          <input type="text" class="form-control" placeholder="Tìm kiếm..." />
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+
+      <!-- Khung chat -->
+      <div class="chat-content" id="chatContent">
+        <!-- Tin nhắn render qua JS -->
+      </div>
+
+      <!-- Input gửi tin nhắn -->
+      <div class="chat-input-area d-flex align-items-center">
+        <input
+          type="text"
+          id="messageInput"
+          class="form-control"
+          placeholder="Nhập tin nhắn..."
+        />
+        <button class="btn btn-primary ml-2" onclick="sendMessage()">
+          Gửi
+        </button>
+      </div>
+    </div>
+
+    <!-- JS: jQuery, Popper, Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- File JS logic -->
+    <script src="./JS_Demo/admin_messenger_dropdown.js"></script>
+  </body>
+</html>
